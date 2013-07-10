@@ -51,10 +51,7 @@ class HipChat(object):
 
         method_url = method_url + '?' + query_string
 
-        if method == "POST":
-            req = self.RequestWithMethod(method_url, http_method=method, data=request_data.encode('utf-8'))
-        if method == "GET":
-            req = self.RequestWithMethod(method_url, http_method=method, data=request_data)
+        req = self.RequestWithMethod(method_url, http_method=method, data=request_data.encode('utf-8'))
         response = self.opener.open(req, None, timeout).read()
 
         return json.loads(response.decode('utf-8'))
