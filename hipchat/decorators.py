@@ -19,13 +19,13 @@ class stdout_as_message(object):
 
             try:
                 sys.stdout = StringIO()
-                o = function(*args,**kwargs)
+                function_to_exec = function(*args,**kwargs)
                 out = sys.stdout.getvalue()
                 messager = HipChat(self.token)
                 messager.message_room(message=out, room_id=self.room_id, message_from=self.message_from, **self.kwargs)
             finally:
                 sys.stdout.close()
                 sys.stdout = sys.__stdout__
-            return o
+            return function_to_exec
 
         return wrapped_function
